@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+.env
 # compiled output
 /dist
 /node_modules
