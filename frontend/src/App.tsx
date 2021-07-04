@@ -4,6 +4,7 @@ import axios from 'axios';
 const App: React.FC = () => {
   const [file, setFile] = React.useState<File | null>(null);
   const [description, setDescription] = React.useState<string>('');
+  const [images, setImages] = React.useState<string[]>([]);
 
   const postImage = async (image: File, description: string) => {
     const formData = new FormData();
@@ -24,6 +25,7 @@ const App: React.FC = () => {
 
     const result = await postImage(file, description);
     console.log(result);
+    setImages((prev) => [...prev, result]);
   };
 
   const fileSelected = (event: any) => {
@@ -38,6 +40,10 @@ const App: React.FC = () => {
         <input value={description} onChange={(e) => setDescription(e.target.value)} type="text"></input>
         <button type="submit">Submit</button>
       </form>
+
+      {images.map((image) => (
+        <img src={`${process.env.REACT_APP_BACKEND_HOST}/images/${image}`} alt="any" />
+      ))}
     </div>
   );
 };
